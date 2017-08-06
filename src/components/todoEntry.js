@@ -1,38 +1,45 @@
+// @flow
 import React from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
-import {observer} from 'mobx-react';
+import { observer } from 'mobx-react';
+
+import TodoStore from '../stores/TodoStore'
 
 const ENTER_KEY = 13;
 
 @observer
 export default class TodoEntry extends React.Component {
-	render() {
-		return (<input
-			ref="newField"
-			className="new-todo"
-			placeholder="What needs to be done?"
-			onKeyDown={this.handleNewTodoKeyDown}
-			autoFocus={true}
-		/>);
-	}
+  props: {
+    todoStore: TodoStore
+  };
 
-	handleNewTodoKeyDown = (event) => {
-		if (event.keyCode !== ENTER_KEY) {
-			return;
-		}
+  render() {
+    return (<input
+      ref="newField"
+      className="new-todo"
+      placeholder="What needs to be done?"
+      onKeyDown={this.handleNewTodoKeyDown}
+      autoFocus={true}
+    />);
+  }
 
-		event.preventDefault();
+  handleNewTodoKeyDown = (event) => {
+    if (event.keyCode !== ENTER_KEY) {
+      return;
+    }
 
-		var val = ReactDOM.findDOMNode(this.refs.newField).value.trim();
+    event.preventDefault();
 
-		if (val) {
-			this.props.todoStore.addTodo(val);
-			ReactDOM.findDOMNode(this.refs.newField).value = '';
-		}
-	};
+    var val = ReactDOM.findDOMNode(this.refs.newField).value.trim();
+
+    if (val) {
+      this.props.todoStore.addTodo(val);
+      ReactDOM.findDOMNode(this.refs.newField).value = '';
+    }
+  };
 }
 
 TodoEntry.propTypes = {
-	todoStore: PropTypes.object.isRequired
+  todoStore: PropTypes.object.isRequired
 };
