@@ -20,13 +20,14 @@ export default class TodoStore {
   }
 
   subscribeServerToStore() {
+    const requsetInit: any = {
+      method: 'post',
+      body: JSON.stringify({ todos }),
+      headers: new Headers({ 'Content-Type': 'application/json' })
+    }
     reaction(
       () => this.toJS(),
-      todos => window.fetch && fetch('/api/todos', {
-        method: 'post',
-        body: JSON.stringify({ todos }),
-        headers: new Headers({ 'Content-Type': 'application/json' })
-      })
+      todos => window.fetch && fetch('/api/todos', requsetInit)
     );
   }
 
