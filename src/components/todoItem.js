@@ -33,7 +33,7 @@ export default class TodoItem extends React.Component {
             onChange={this.handleToggle}
           />
           <label onDoubleClick={this.handleEdit}>
-            {todo.title.title}
+            {todo.title.text}
           </label>
           <button className="destroy" onClick={this.handleDestroy} />
         </div>
@@ -68,12 +68,12 @@ export default class TodoItem extends React.Component {
   handleEdit = () => {
     const todo = this.props.todo;
     this.props.viewStore.todoBeingEdited = todo;
-    this.editText = todo.title;
+    this.editText = todo.title.text;
   };
 
   handleKeyDown = (event) => {
     if (event.which === ESCAPE_KEY) {
-      this.editText = this.props.todo.title;
+      this.editText = this.props.todo.title.text;
       this.props.viewStore.todoBeingEdited = null;
     } else if (event.which === ENTER_KEY) {
       this.handleSubmit(event);

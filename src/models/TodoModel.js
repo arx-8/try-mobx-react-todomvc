@@ -1,18 +1,27 @@
 // @flow
+import TodoTitleModel, { ValidationError } from './TodoTitleModel'
+
 import TodoStore from '../stores/TodoStore'
 import { observable } from 'mobx';
 
 export default class TodoModel {
   store: TodoStore;
   id: string;
-  @observable title: string;
+  @observable title: TodoTitleModel;
   @observable completed: boolean;
 
-  constructor(store: TodoStore, id: string, title: string, completed: boolean) {
+  constructor(store: TodoStore, id: string, titleStr: string, completed: boolean) {
     this.store = store;
     this.id = id;
-    this.title = title;
     this.completed = completed;
+
+    try {
+      this.title = new TodoTitleModel(titleStr);
+    } catch (error) {
+      alert(error.message);
+      // 処理中断させるためにそのままぶん投げ
+      throw error;
+    }
   }
 
   toggle() {
@@ -23,14 +32,20 @@ export default class TodoModel {
     this.store.todos.remove(this);
   }
 
-  setTitle(title: string) {
-    this.title = title;
+  setTitle(titleStr: string) {
+    try {
+      this.title = new TodoTitleModel(titleStr);
+    } catch (error) {
+      alert(error.message);
+      // NOP
+      return;
+    }
   }
 
-  toJS() {
+  toJS(): { id: string, title: string, completed: boolean } {
     return {
       id: this.id,
-      title: this.title,
+      title: this.title.text,
       completed: this.completed
     };
   }
