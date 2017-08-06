@@ -1,0 +1,21 @@
+// 既定の設定とユーザー設定を上書きするには、このファイル内に設定を挿入します
+{
+  // ファイルを保存するときにフォーマットしてください。フォーマッタを使用可能にして、ファイルを自動保存せず、エディターをシャットダウンしないでください。
+  "editor.formatOnSave": true,
+  // エディターで入力後に自動的に行の書式設定を行うかどうかを制御します
+  "editor.formatOnType": true,
+  // 検索でファイルとフォルダーを除外するために glob パターンを構成します。files.exclude 設定からすべての glob パターンを継承します。
+  "search.exclude": {
+    "**/node_modules": true,
+    "**/build": true,
+    "**/dev": true
+  },
+  // ファイルとフォルダーを除外するための glob パターンを構成します。
+  "files.exclude": {
+    "**/.git": true
+  },
+  // Extension : Flow Language Support
+  // https://marketplace.visualstudio.com/items?itemName=gcazaciuc.vscode-flow-ide
+  "flow.useNPMPackagedFlow": true,
+  "javascript.validate.enable": false
+}
