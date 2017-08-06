@@ -1,20 +1,21 @@
 // @flow
-import { observable, computed, reaction } from 'mobx';
-import TodoModel from '../models/TodoModel'
 import * as Utils from '../utils';
 
+import { computed, observable, reaction } from 'mobx';
+
+import TodoModel from '../models/TodoModel'
 
 export default class TodoStore {
-  @observable todos = [];
+  @observable todos: Array<TodoModel> = [];
 
-  @computed get activeTodoCount() {
+  @computed get activeTodoCount(): number {
     return this.todos.reduce(
       (sum, todo) => sum + (todo.completed ? 0 : 1),
       0
     )
   }
 
-  @computed get completedCount() {
+  @computed get completedCount(): number {
     return this.todos.length - this.activeTodoCount;
   }
 
@@ -36,11 +37,11 @@ export default class TodoStore {
     );
   }
 
-  addTodo(title) {
+  addTodo(title: string) {
     this.todos.push(new TodoModel(this, Utils.uuid(), title, false));
   }
 
-  toggleAll(checked) {
+  toggleAll(checked: string) {
     this.todos.forEach(
       todo => todo.completed = checked
     );
