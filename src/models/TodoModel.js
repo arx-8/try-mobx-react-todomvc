@@ -23,7 +23,7 @@ export default class TodoModel {
     this.store.todos.remove(this);
   }
 
-  setTitle(title) {
+  setTitle(title: string) {
     this.title = title;
   }
 

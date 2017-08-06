@@ -1,10 +1,9 @@
 // @flow
+import PropTypes from 'prop-types';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import PropTypes from 'prop-types';
-import { observer } from 'mobx-react';
-
 import TodoStore from '../stores/TodoStore'
+import { observer } from 'mobx-react';
 
 const ENTER_KEY = 13;
 
@@ -24,7 +23,11 @@ export default class TodoEntry extends React.Component {
     />);
   }
 
-  handleNewTodoKeyDown = (event) => {
+  /**
+   * flow-typedもマスターしないとだ
+   * http://qiita.com/kuy/items/90fe63a9cc6710815c09
+   */
+  handleNewTodoKeyDown = (event: KeyboardEventHandler) => {
     if (event.keyCode !== ENTER_KEY) {
       return;
     }
